@@ -4,15 +4,20 @@ public class Main {
 
     static Scanner input = new Scanner(System.in);
 
-    static void insertValues(int[][] matrix, int numberRow, int numberCol){
+    static void insertValues(int[][] matrix, int numberRow, int numberCol){   //insert values from user
         for (int x = 0; x< numberRow; x++){
             for(int y = 0; y< numberCol; y++){
+                if(!input.hasNextInt()){ // validate inputs
+                    System.out.println("the value you entered on index (" + x + "," + y + ") is not a number!"  );
+                    input.next();
+                }
+
                 matrix[x][y] = input.nextInt();
             }
         }
     }
 
-    static int[][] multiplyMatrix(int rowA, int colA, int colB, int[][] a, int[][] b){
+    static int[][] multiplyMatrix(int rowA, int colA, int colB, int[][] a, int[][] b){      // calculate multiplication of Matrix A and Matrix B
         int[][] result = new int[rowA][colB];
         for(int i = 0; i< rowA; i++) {
              for(int j = 0; j< colB; j++) {
@@ -28,37 +33,40 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.print("Enter number of rows for Matrix A: ");
-        int numberRow1 = input.nextInt();
+        int numberRowA = input.nextInt();
 
         System.out.print("Enter number of columns for Matrix A: ");
-        int numberCol1 = input.nextInt();
+        int numberColA = input.nextInt();
 
         System.out.print("Enter number of rows for Matrix B: ");
-        int numberRow2 = input.nextInt();
+        int numberRowB = input.nextInt();
 
         System.out.print("Enter number of columns for Matrix B: ");
-        int numberCol2 = input.nextInt();
-        int[][] matrix1 = new int[numberRow1][numberCol1];
-        int[][] matrix2 = new int[numberRow2][numberCol2];
+        int numberColB = input.nextInt();
+
+        int[][] matrixA = new int[numberRowA][numberColA];
+        int[][] matrixB = new int[numberRowB][numberColB];
 
         System.out.println("\n");
-        if(numberCol1 != numberRow2){
+        if(numberColA != numberRowB){
             System.out.println("Can't multiply this matrix!! The number of columns for Matrix A must equal to the number of rows of Matrix B");
         } else {
-            System.out.println("Enter values Matrix A: " + numberRow1 + "," + numberCol1);
-            insertValues(matrix1, numberRow1, numberCol1);
+            System.out.println("Enter values Matrix A: " + numberRowA + "," + numberColA);
+            insertValues(matrixA, numberRowA, numberColA);
 
             System.out.println("\n");
-            System.out.println("Enter values Matrix B: "+ numberRow2 + "," + numberCol2);
-            insertValues(matrix2, numberRow2, numberCol2);
+            System.out.println("Enter values Matrix B: "+ numberRowB + "," + numberColB);
+            insertValues(matrixB, numberRowB, numberColB);
 
-           int[][] result = multiplyMatrix(numberRow1, numberCol1, numberCol2, matrix1, matrix2);
+           int[][] matrixC = multiplyMatrix(numberRowA, numberColA, numberColB, matrixA, matrixB);
+
             System.out.println("\n");
             System.out.println("Matrix C:\n");
-           for (int x = 0; x< numberRow1; x++){
+
+           for (int x = 0; x< numberRowA; x++){
                    System.out.print("|\t");
-                   for(int y = 0; y< numberCol2; y++){
-                   System.out.print(result[x][y]+ "\t");
+                   for(int y = 0; y< numberColB; y++){
+                   System.out.print(matrixC[x][y]+ "\t");
                }
 
                System.out.print("|");
